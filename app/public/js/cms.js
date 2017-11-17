@@ -20,7 +20,7 @@ $(document).ready(function() {
     getPostData(postId, "post");
   }
   // Otherwise if we have an author_id in our url, preset the author select box to be our Author
-  else if (url.indexOf("?author_id=") !== -1) {
+  else if (url.indexOf("?user_id=") !== -1) {
     authorId = url.split("=")[1];
   }
 
@@ -36,13 +36,13 @@ $(document).ready(function() {
     }
     // Constructing a newPost object to hand to the database
     var newPost = {
-      title: titleInput
+      rating: titleInput
         .val()
         .trim(),
-      body: bodyInput
+      comment: bodyInput
         .val()
         .trim(),
-      AuthorId: authorSelect.val()
+      userId: authorSelect.val()
     };
 
     // If we're updating a post run updatePost to update a post
@@ -71,18 +71,18 @@ $(document).ready(function() {
         queryUrl = "/api/posts/" + id;
         break;
       case "author":
-        queryUrl = "/api/authors/" + id;
+        queryUrl = "/api/userss/" + id;
         break;
       default:
         return;
     }
     $.get(queryUrl, function(data) {
       if (data) {
-        console.log(data.AuthorId || data.id);
+        console.log(data.userId || data.id);
         // If this post exists, prefill our cms forms with its data
         titleInput.val(data.title);
         bodyInput.val(data.body);
-        authorId = data.AuthorId || data.id;
+        authorId = data.userrId || data.id;
         // If we have a post with this id, set a flag for us to know to update the post
         // when we hit submit
         updating = true;
@@ -92,13 +92,13 @@ $(document).ready(function() {
 
   // A function to get Authors and then render our list of Authors
   function getAuthors() {
-    $.get("/api/authors", renderAuthorList);
+    $.get("/api/users", renderAuthorList);
   }
   // Function to either render a list of authors, or if there are none, direct the user to the page
   // to create an author first
   function renderAuthorList(data) {
     if (!data.length) {
-      window.location.href = "/authors";
+      window.location.href = "/users";
     }
     $(".hidden").removeClass("hidden");
     var rowsToAdd = [];
@@ -113,10 +113,10 @@ $(document).ready(function() {
   }
 
   // Creates the author options in the dropdown
-  function createAuthorRow(author) {
+  function createAuthorRow(user) {
     var listOption = $("<option>");
-    listOption.attr("value", author.id);
-    listOption.text(author.name);
+    listOption.attr("value", user.id);
+    listOption.text(user.name);
     return listOption;
   }
 

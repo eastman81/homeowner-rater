@@ -15,17 +15,17 @@ module.exports = function(app) {
   // GET route for getting all of the posts
   app.get("/api/posts", function(req, res) {
     var query = {};
-    if (req.query.author_id) {
-      query.AuthorId = req.query.author_id;
+    if (req.query.user_id) {
+      query.userId = req.query.user_id;
     }
     // Here we add an "include" property to our options in our findAll query
     // We set the value to an array of the models we want to include in a left outer join
     // In this case, just db.Author
-    db.Post.findAll({
+    db.post.findAll({
       where: query,
-      include: [db.Author]
-    }).then(function(dbPost) {
-      res.json(dbPost);
+      include: [db.user]
+    }).then(function(dbpost) {
+      res.json(dbpost);
     });
   });
 
@@ -34,44 +34,44 @@ module.exports = function(app) {
     // Here we add an "include" property to our options in our findOne query
     // We set the value to an array of the models we want to include in a left outer join
     // In this case, just db.Author
-    db.Post.findOne({
+    db.post.findOne({
       where: {
         id: req.params.id
       },
-      include: [db.Author]
-    }).then(function(dbPost) {
-      res.json(dbPost);
+      include: [db.user]
+    }).then(function(dbpost) {
+      res.json(dbpost);
     });
   });
 
   // POST route for saving a new post
   app.post("/api/posts", function(req, res) {
-    db.Post.create(req.body).then(function(dbPost) {
-      res.json(dbPost);
+    db.post.create(req.body).then(function(dbpost) {
+      res.json(dbpost);
     });
   });
 
   // DELETE route for deleting posts
   app.delete("/api/posts/:id", function(req, res) {
-    db.Post.destroy({
+    db.post.destroy({
       where: {
         id: req.params.id
       }
-    }).then(function(dbPost) {
-      res.json(dbPost);
+    }).then(function(dbpost) {
+      res.json(dbpost);
     });
   });
 
   // PUT route for updating posts
   app.put("/api/posts", function(req, res) {
-    db.Post.update(
+    db.post.update(
       req.body,
       {
         where: {
           id: req.body.id
         }
-      }).then(function(dbPost) {
-        res.json(dbPost);
+      }).then(function(dbpost) {
+        res.json(dbpost);
       });
   });
 };
