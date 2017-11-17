@@ -8,12 +8,12 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false,
       len: [1]
-    },
-    work: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-      len: [1]
     }
+    // work: {
+    //   type: DataTypes.TEXT,
+    //   allowNull: false,
+    //   len: [1]
+    // }
   });
 
   Post.associate = function(models) {
@@ -24,13 +24,13 @@ module.exports = function(sequelize, DataTypes) {
     });
   };
 
-  Post.associate = function(models) {
-    Post.belongsTo(models.owner, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
-  };
+  // Post.associate = function(models) {
+  //   Post.belongsTo(models.owner, {
+  //     foreignKey: {
+  //       allowNull: false
+  //     }
+  //   });
+  // };
 
   return Post;
 };
