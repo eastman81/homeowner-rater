@@ -14,7 +14,7 @@ $(document).ready(function() {
   // Looks for a query param in the url for author_id
   var url = window.location.search;
   var authorId;
-  if (url.indexOf("?author_id=") !== -1) {
+  if (url.indexOf("?user_id=") !== -1) {
     authorId = url.split("=")[1];
     getPosts(authorId);
   }
@@ -28,7 +28,7 @@ $(document).ready(function() {
   function getPosts(author) {
     authorId = author || "";
     if (authorId) {
-      authorId = "/?author_id=" + authorId;
+      authorId = "/?user_id=" + authorId;
     }
     $.get("/api/posts" + authorId, function(data) {
       console.log("Posts", data);
@@ -80,7 +80,7 @@ $(document).ready(function() {
     var newPostTitle = $("<h2>");
     var newPostDate = $("<small>");
     var newPostAuthor = $("<h5>");
-    newPostAuthor.text("Written by: " + post.Author.name);
+    newPostAuthor.text("Written by: " + post.user.name);
     newPostAuthor.css({
       float: "right",
       color: "blue",
@@ -90,8 +90,8 @@ $(document).ready(function() {
     var newPostPanelBody = $("<div>");
     newPostPanelBody.addClass("panel-body");
     var newPostBody = $("<p>");
-    newPostTitle.text(post.title + " ");
-    newPostBody.text(post.body);
+    newPostTitle.text(post.rating + " ");
+    newPostBody.text(post.comment);
     newPostDate.text(formattedDate);
     newPostTitle.append(newPostDate);
     newPostPanelHeading.append(deleteBtn);
@@ -128,7 +128,7 @@ $(document).ready(function() {
     var query = window.location.search;
     var partial = "";
     if (id) {
-      partial = " for Author #" + id;
+      partial = " for User #" + id;
     }
     blogContainer.empty();
     var messageh2 = $("<h2>");
