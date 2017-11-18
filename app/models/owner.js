@@ -1,15 +1,16 @@
 module.exports = function(sequelize, DataTypes) {
   var Owner = sequelize.define("owner", {
-    ownerName: {
+    name: {
       	type: DataTypes.TEXT,
       	allowNull: false,
       	len: [1]
-    },
-    address: {
-    	type: DataTypes.TEXT,
-    	allowNull: false,
-      	len: [1]
     }
+    // address: {
+    // 	type: DataTypes.TEXT,
+    // 	allowNull: false,
+    //   	len: [1]
+    // }
+
   });
 
   Owner.associate = function(models) {
