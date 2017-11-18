@@ -38,9 +38,9 @@ $(document).ready(function() {
     newTr.data("user", authorData);
     newTr.append("<td>" + authorData.name + "</td>");
     newTr.append("<td> " + authorData.posts.length + "</td>");
-    newTr.append("<td><a href='/blog?author_id=" + authorData.id + "'>Go to Posts</a></td>");
-    newTr.append("<td><a href='/cms?author_id=" + authorData.id + "'>Create a Post</a></td>");
-    newTr.append("<td><a style='cursor:pointer;color:red' class='delete-author'>Delete Author</a></td>");
+    newTr.append("<td><a href='/blog?author_id=" + authorData.id + "'>Go to Ratings</a></td>");
+    newTr.append("<td><a href='/cms?author_id=" + authorData.id + "'>Create a Ratings</a></td>");
+    newTr.append("<td><a style='cursor:pointer;color:red' class='delete-author'>Delete User</a></td>");
     return newTr;
   }
 
@@ -73,7 +73,7 @@ $(document).ready(function() {
   function renderEmpty() {
     var alertDiv = $("<div>");
     alertDiv.addClass("alert alert-danger");
-    alertDiv.text("You must create an Author before you can create a Post.");
+    alertDiv.text("You must create an user before you can create a rating.");
     authorContainer.append(alertDiv);
   }
 
