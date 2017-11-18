@@ -22,15 +22,14 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       }
     });
+
+    Post.belongsTo(models.owner, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
   };
 
-  // Post.associate = function(models) {
-  //   Post.belongsTo(models.owner, {
-  //     foreignKey: {
-  //       allowNull: false
-  //     }
-  //   });
-  // };
 
   return Post;
 };

@@ -74,7 +74,7 @@ $(document).ready(function() {
         queryUrl = "/api/posts/" + id;
         break;
       case "author":
-        queryUrl = "/api/userss/" + id;
+        queryUrl = "/api/users/" + id;
         break;
       default:
         return;
