@@ -22,6 +22,12 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       }
     });
+
+    Post.belongsTo(models.owner, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
   };
 
   return Post;
