@@ -1,15 +1,17 @@
 $(document).ready(function() {
   // Getting jQuery references to the post body, title, form, and author select
-  var bodyInput = $("#body");
-  var titleInput = $("#title");
+  var commentInput = $("#comments");
+  var ratingInput = $("#rating");
   var cmsForm = $("#cms");
-  var authorSelect = $("#author");
+  var userSelect = $("#user");
+  // var ownerSelect = $("owner");
   // Adding an event listener for when the form is submitted
   $(cmsForm).on("submit", handleFormSubmit);
   // Gets the part of the url that comes after the "?" (which we have if we're updating a post)
   var url = window.location.search;
   var postId;
   var authorId;
+  // var ownerId;
   // Sets a flag for whether or not we're updating a post to be false initially
   var updating = false;
 
@@ -25,24 +27,25 @@ $(document).ready(function() {
   }
 
   // Getting the authors, and their posts
-  getAuthors();
+  getUsers();
 
   // A function for handling what happens when the form to create a new post is submitted
   function handleFormSubmit(event) {
     event.preventDefault();
     // Wont submit the post if we are missing a body, title, or author
-    if (!titleInput.val().trim() || !bodyInput.val().trim() || !authorSelect.val()) {
+    if (!ratingInput.val().trim() || !commentInput.val().trim() || !userSelect.val()) {
       return;
     }
     // Constructing a newPost object to hand to the database
     var newPost = {
-      rating: titleInput
+      rating: ratingInput
         .val()
         .trim(),
-      comment: bodyInput
+      comment: commentInput
         .val()
         .trim(),
-      userId: authorSelect.val()
+      userId: userSelect.val()
+      // ownerId: ownerSelect.val()
     };
 
     // If we're updating a post run updatePost to update a post
@@ -71,7 +74,7 @@ $(document).ready(function() {
         queryUrl = "/api/posts/" + id;
         break;
       case "author":
-        queryUrl = "/api/userss/" + id;
+        queryUrl = "/api/users/" + id;
         break;
       default:
         return;
@@ -80,9 +83,9 @@ $(document).ready(function() {
       if (data) {
         console.log(data.userId || data.id);
         // If this post exists, prefill our cms forms with its data
-        titleInput.val(data.title);
-        bodyInput.val(data.body);
-        authorId = data.userrId || data.id;
+        ratingInput.val(data.title);
+        commentInput.val(data.body);
+        authorId = data.authorId || data.id;
         // If we have a post with this id, set a flag for us to know to update the post
         // when we hit submit
         updating = true;
@@ -91,7 +94,7 @@ $(document).ready(function() {
   }
 
   // A function to get Authors and then render our list of Authors
-  function getAuthors() {
+  function getUsers() {
     $.get("/api/users", renderAuthorList);
   }
   // Function to either render a list of authors, or if there are none, direct the user to the page
@@ -105,11 +108,11 @@ $(document).ready(function() {
     for (var i = 0; i < data.length; i++) {
       rowsToAdd.push(createAuthorRow(data[i]));
     }
-    authorSelect.empty();
+    userSelect.empty();
     console.log(rowsToAdd);
-    console.log(authorSelect);
-    authorSelect.append(rowsToAdd);
-    authorSelect.val(authorId);
+    console.log(userSelect);
+    userSelect.append(rowsToAdd);
+    userSelect.val(authorId);
   }
 
   // Creates the author options in the dropdown
