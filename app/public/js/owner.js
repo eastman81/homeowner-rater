@@ -1,3 +1,7 @@
+// var ownerEmail = require('index.js');
+
+// console.log(ownerEmail);
+
 $(document).ready(function() {
   // Getting references to the name inout and author container, as well as the table body
   var nameInput = $("#owner-name");
