@@ -69,6 +69,8 @@
                 </div>
             </div>
         </div>
+
+        <h2 id="name-display"></h2>
     </div>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery.js"></script>
@@ -95,7 +97,7 @@
     var password = "";
 
     // Capture Button Click
-    $("#add-user").on("click", function() {
+    $("#add-user").on("click", function(event) {
         // Don't refresh the page!
         event.preventDefault();
 
@@ -103,6 +105,14 @@
         email = $("#email-input").val().trim();
         password = $("#password-input").val().trim();
 
+        // Clear sessionStorage
+        sessionStorage.clear();
+
+        // Store all content into sessionStorage
+        sessionStorage.setItem("name", name);
+        console.log(name);
+
+        $("#name-display").text(sessionStorage.getItem("name"));
 
         firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
           // Handle Errors here.
@@ -118,7 +128,7 @@
         });
     });
 
-    $("#login-user").on("click", function() {
+    $("#login-user").on("click", function(event) {
         // Don't refresh the page!
         event.preventDefault();
 

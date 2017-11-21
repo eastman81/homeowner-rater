@@ -1,170 +1,40 @@
 <!DOCTYPE html>
-<html lang="en-us">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Sign-Up Today!</title>
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <title>Home Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 
 <body>
-    <div class="container">
-        <br>
+  <div class="container">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="nav navbar-nav navbar-right">
+          <a href="./home.html">
+            <button type="button" class="btn btn-default navbar-btn">Sign in</button>
+        </a>
+      </div>  
+      </div>
+    </nav>
+
+    <br>
         <!-- Jumbotron -->
         <div class="jumbotron">
-            <h1 class="text-center">Member Center</h1>
+            <h1 class="text-center">Welcome to ____ _____ _____</h1>
         </div>
+
         <div class="row">
-            <!-- Sign-Up Panel-->
-            <div class="col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">New Member Sign-Up</h3>
-                    </div>
-                    <div class="panel-body">
-                        <!-- Sign-up Form (note the various input "types")-->
-                        <form role="form">
-                            <div class="form-group">
-                                <label for="name-input">Name:</label>
-                                <input class="form-control" id="name-input" type="text">
-                            </div>
-                            <div class="form-group">
-                                <label for="email-input">Email:</label>
-                                <input class="form-control" id="email-input" type="email">
-                            </div>
-                            <div class="form-group">
-                                <label for="password-input">Password:</label>
-                                <input class="form-control" id="password-input" type="password">
-                            </div>
-                            <button class="btn btn-default" id="add-user" type="submit">Submit</button>
-                        </form>
-                    </div>
-                </div>
+          <div class="col-lg-12">
+            <h1 class="text-center">Main Area</h1>
+            <br>
+            <div class="text-center">
+              <a href="#">
+                <button class="btn btn-default" id="send-search" type="submit">Search Homeowners</button>
+              </a>
             </div>
-            <!-- Most Recent Member Panel -->
-            <div class="col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Member Log-In</h3>
-                    </div>
-                    <div class="panel-body">
-                        <!-- Sign-up Form (note the various input "types")-->
-                        <form role="form">
-                            <div class="form-group">
-                                <label for="name-login">Name:</label>
-                                <input class="form-control" id="name-login" type="text">
-                            </div>
-                            <div class="form-group">
-                                <label for="email-login">Email:</label>
-                                <input class="form-control" id="email-login" type="email">
-                            </div>
-                            <div class="form-group">
-                                <label for="password-login">Password:</label>
-                                <input class="form-control" id="password-login" type="password">
-                            </div>
-                            <button class="btn btn-default" id="login-user" type="submit">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-    </div>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
-    <script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyAhu_Jaq3JhCE3BJ7wg43DrH7b6FtpZND0",
-        authDomain: "home-owner-rater.firebaseapp.com",
-        databaseURL: "https://home-owner-rater.firebaseio.com",
-        projectId: "home-owner-rater",
-        storageBucket: "home-owner-rater.appspot.com",
-        messagingSenderId: "275239062934"
-    };
-    firebase.initializeApp(config);
+  </div>
 
-    // Make it work
-    // Create a variable to reference the database
-    var database = firebase.database();
-
-    // Initial Values
-    var name = "";
-    var email = "";
-    var password = "";
-
-    // Capture Button Click
-    $("#add-user").on("click", function() {
-        // Don't refresh the page!
-        event.preventDefault();
-
-        name = $("#name-input").val().trim();
-        email = $("#email-input").val().trim();
-        password = $("#password-input").val().trim();
-
-
-        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // ...
-        });
-
-        database.ref().set({
-          name: name,
-          email: email,
-          password: password
-        });
-    });
-
-    $("#login-user").on("click", function() {
-        // Don't refresh the page!
-        event.preventDefault();
-
-        name = $("#name-login").val().trim();
-        email = $("#email-login").val().trim();
-        password = $("#password-login").val().trim();
-
-        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // ...
-        });
-
-        // Testig if we're signed in
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                console.log("User logged in");
-                database.ref(name).set({
-                    name: name,
-                    email: email,
-                    password: password
-                });
-            } else {
-                console.log("Not signed in");
-            }
-        });
-    });    
-
-    // Firebase watcher + initial loader HINT: .on("value")
-    // database.ref().on("value", function(snapshot) {
-
-        // Log everything that's coming out of snapshot
-        // console.log(snapshot.val());
-        // console.log(snapshot.val().name);
-        // console.log(snapshot.val().email);
-
-        // Change the HTML to reflect
-        // $("#name-display").text(snapshot.val().name);
-        // $("#email-display").text(snapshot.val().email);
-
-        // Handle the errors
-    // }, function(errorObject) {
-    //     console.log("Errors handled: " + errorObject.code);
-    // });
-    </script>
 </body>
-
 </html>
