@@ -26,6 +26,18 @@ module.exports = function(app) {
     });
   });
 
+  // API get function to find a specific user ID using the email
+  app.get("/api/email/:id", function(req, res) {
+    db.user.findOne({
+      where: {
+        email: req.params.id
+      },
+    }).then(function(dbuser) {
+      res.json(dbuser.id);
+      console.log(dbuser);
+    });
+  });
+
   app.post("/api/users", function(req, res) {
     db.user.create(req.body).then(function(dbuser) {
       res.json(dbuser);
