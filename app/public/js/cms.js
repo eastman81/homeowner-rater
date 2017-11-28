@@ -1,52 +1,46 @@
-console.log("hey hey")
+console.log("Test 1");
 
 $(document).ready(function() {
 
-    // Firebase shit
-    var config = {
-        apiKey: "AIzaSyAhu_Jaq3JhCE3BJ7wg43DrH7b6FtpZND0",
-        authDomain: "home-owner-rater.firebaseapp.com",
-        databaseURL: "https://home-owner-rater.firebaseio.com",
-        projectId: "home-owner-rater",
-        storageBucket: "home-owner-rater.appspot.com",
-        messagingSenderId: "275239062934"
-    };
-    firebase.initializeApp(config);
-    var database = firebase.database();
+    // // Firebase information
+    // var config = {
+    //     apiKey: "AIzaSyAhu_Jaq3JhCE3BJ7wg43DrH7b6FtpZND0",
+    //     authDomain: "home-owner-rater.firebaseapp.com",
+    //     databaseURL: "https://home-owner-rater.firebaseio.com",
+    //     projectId: "home-owner-rater",
+    //     storageBucket: "home-owner-rater.appspot.com",
+    //     messagingSenderId: "275239062934"
+    // };
+    // firebase.initializeApp(config);
+    // var database = firebase.database();
 
-    var currentUser;
-    // Testig if we're signed in
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            console.log("User logged in");
-            console.log(user);
-            currentUser = user.email;
-        } else {
-            console.log("Not signed in");
-        }
-    });
-    // console.log(currentUser);
-    if (currentUser != null) {
-        currentUser.providerData.forEach(function(profile) {
-            console.log("Sign-in provider: " + profile.name);
-            console.log("  Name: " + profile.name);
-            console.log("  Email: " + profile.email);
-        });
-    }
+    // // Testig if we're signed in
+    // firebase.auth().onAuthStateChanged(function(user) {
+    //     if (user) {
+    //         console.log("User logged in");
+    //         console.log(user);
+    //         currentUser = user.email;
+    //     } else {
+    //         console.log("Not signed in");
+    //     }
+    // });
 
     // Getting jQuery references to the post body, title, form, and author select
     var commentInput = $("#comments");
     var ratingInput = $("#rating");
     var cmsForm = $("#cms");
-    //var userSelect = $("#user");
-    // var ownerSelect = $("owner");
+    var userSelect = sessionStorage.getItem("userID");
+    var ownerSelect = $("owner");
+
     // Adding an event listener for when the form is submitted
     $(cmsForm).on("submit", handleFormSubmit);
+
     // Gets the part of the url that comes after the "?" (which we have if we're updating a post)
     var url = window.location.search;
     var postId;
     var authorId;
-    // var ownerId;
+    var ownerId;
+
     // Sets a flag for whether or not we're updating a post to be false initially
     var updating = false;
 
@@ -61,14 +55,13 @@ $(document).ready(function() {
         authorId = url.split("=")[1];
     }
 
-    // Getting the authors, and their posts
-    //getUsers();
+    getUsers();
 
     // A function for handling what happens when the form to create a new post is submitted
     function handleFormSubmit(event) {
         event.preventDefault();
         // Wont submit the post if we are missing a body, title, or author
-        if (!ratingInput.val().trim() || !commentInput.val().trim() || !userSelect.val()) {
+        if (!ratingInput.val().trim() || !commentInput.val().trim() ) {
             return;
         }
         // Constructing a newPost object to hand to the database
@@ -79,7 +72,7 @@ $(document).ready(function() {
             comment: commentInput
                 .val()
                 .trim(),
-            userId: userSelect.val()
+            userId: userSelect
             // ownerId: ownerSelect.val()
         };
 
@@ -128,35 +121,35 @@ $(document).ready(function() {
     }
 
     // A function to get Authors and then render our list of Authors
-    // function getUsers() {
-    //   $.get("/api/users", renderAuthorList);
-    // }
-    // Function to either render a list of authors, or if there are none, direct the user to the page
-    // to create an author first
-    // function renderAuthorList(data) {
-    //   if (!userSelect) {
-    //     window.location.href = "/users";
-    //   }
-    //   $(".hidden").removeClass("hidden");
-    //   var rowsToAdd = [];
-    //   for (var i = 0; i < data.length; i++) {
-    //     rowsToAdd.push(createAuthorRow(data[i]));
-    //   }
-    //   userSelect.empty();
-    //   console.log(rowsToAdd);
-    //   console.log(userSelect);
-    //   userSelect.append(rowsToAdd);
-    //   userSelect.val(authorId);
-    // }
+    function getUsers() {
+      $.get("/api/users", renderAuthorList);
+    }
+    //Function to either render a list of authors, or if there are none, direct the user to the page
+    //to create an author first
+    function renderAuthorList(data) {
+      if (!userSelect) {
+        window.location.href = "/users";
+      }
+      $(".hidden").removeClass("hidden");
+      // var rowsToAdd = [];
+      // for (var i = 0; i < data.length; i++) {
+      //   rowsToAdd.push(createAuthorRow(data[i]));
+      // }
+      // userSelect.empty();
+      // console.log(rowsToAdd);
+      // console.log(userSelect);
+      // userSelect.append(rowsToAdd);
+      // userSelect.val(authorId);
+    }
 
     // Creates the author options in the dropdown
-    // function createAuthorRow(user) {
-    //   var listOption = $("<option>");
-    //   listOption.attr("value", user.id);
-    //   listOption.text(user.name);
-    //   return listOption;
-    // }
-    console.log("really did load")
+    function createAuthorRow(user) {
+      var listOption = $("<option>");
+      listOption.attr("value", user.id);
+      listOption.text(user.name);
+      return listOption;
+    }
+
     // Update a given post, bring user to the blog page when done
     function updatePost(post) {
         $.ajax({
