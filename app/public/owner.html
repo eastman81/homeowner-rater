@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>CMS - Express</title>
+	<title>Owner</title>
 	<!-- Latest compiled and minified CSS & JS -->
 	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/styles.css" media="screen" title="no title">
@@ -13,6 +13,23 @@
 
 <body>
 	<div class="container">
+		<nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="./index.html">My Favorite Homeowner</a>
+            
+            <form class="navbar-form navbar-right" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Homeowner">
+              </div>
+              <button type="submit" class="btn btn-default">Search</button>
+
+              <button class="btn btn-default" id="signout-user" type="submit">Log Out</button>
+            </form>
+
+          </div>
+        </nav>
+
+
 		<div class="row top-30">
       		<div class="col-md-2 col-sm-2">
         		<a class="btn btn-default" href="/blog">Go to Blog</a>

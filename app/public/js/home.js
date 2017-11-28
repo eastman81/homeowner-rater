@@ -55,11 +55,14 @@ $("#add-user").on("click", function(event) {
         });
       }
 
-      function upsertUser(userData) {
+    function upsertUser(userData) {
         $.post("/api/users", userData);
-      }
-      handleUserFormSubmit();
-    // location.reload();
+    }
+    handleUserFormSubmit();
+
+    $("#name-input").val("");
+    $("#email-input").val("");
+    $("#password-input").val("");
 });
 
 $("#login-user").on("click", function(event) {
@@ -100,7 +103,11 @@ $("#login-user").on("click", function(event) {
                 email: email,
                 password: password
             });
+
+            // $('<a href=" '+  +' ">' + desiredText +' </a>').appendTo($('body'));
+            $("<a href='./blog.html'></a>").appendTo($("#login-user"));
         } else {
+            // alert("Incorrect Password");
             console.log("Not signed in");
         }
     });

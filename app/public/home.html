@@ -4,12 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign-Up Today!</title>
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css" media="screen" title="no title">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 
 <body>
     <div class="container">
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="./index.html">My Favorite Homeowner</a>
+            
+            <form class="navbar-form navbar-right" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Homeowner">
+              </div>
+              <button type="submit" class="btn btn-default">Search</button>
+
+            </form>
+
+          </div>
+        </nav>
+
         <br>
         <!-- Jumbotron -->
         <div class="jumbotron">
@@ -37,7 +54,7 @@
                                 <label for="password-input">Password:</label>
                                 <input class="form-control" id="password-input" type="password">
                             </div>
-                            <button class="btn btn-default" id="add-user" type="submit">Submit</button>
+                            <button class="btn btn-default" id="add-user" type="submit">Create Account</button>
                         </form>
                     </div>
                 </div>
@@ -63,8 +80,9 @@
                                 <label for="password-login">Password:</label>
                                 <input class="form-control" id="password-login" type="password">
                             </div>
-                            <button class="btn btn-default" id="login-user" type="submit">Submit</button>
-                            <button class="btn btn-default" id="signout-user" type="submit">Log Out</button>
+                                
+                            <button class="btn btn-default" id="login-user" type="submit"></button>
+                            
                         </form>
                     </div>
                 </div>
@@ -74,149 +92,7 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
-    <script src="./js/home.js">
-    // var db = require("../models");
-    // // Initialize Firebase
-    // var config = {
-    //     apiKey: "AIzaSyAhu_Jaq3JhCE3BJ7wg43DrH7b6FtpZND0",
-    //     authDomain: "home-owner-rater.firebaseapp.com",
-    //     databaseURL: "https://home-owner-rater.firebaseio.com",
-    //     projectId: "home-owner-rater",
-    //     storageBucket: "home-owner-rater.appspot.com",
-    //     messagingSenderId: "275239062934"
-    // };
-    // firebase.initializeApp(config);
-
-    // // Make it work
-    // // Create a variable to reference the database
-    // var database = firebase.database();
-
-    // // Initial Values
-    // var name = "";
-    // var email = "";
-    // var password = "";
-
-    // // Capture Button Click
-    // $("#add-user").on("click", function(event) {
-    //     // Don't refresh the page!
-    //     event.preventDefault();
-
-    //     name = $("#name-input").val().trim();
-    //     email = $("#email-input").val().trim();
-    //     password = $("#password-input").val().trim();
-
-    //     $("#name-display").text(sessionStorage.getItem("name"));
-
-    //     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-    //       // Handle Errors here.
-    //       var errorCode = error.code;
-    //       var errorMessage = error.message;
-    //       // ...
-    //     });
-
-    //     database.ref().set({
-    //       name: name,
-    //       email: email,
-    //       password: password
-    //     });
-          
-    //       // A function to handle what happens when the form is submitted to create a new user
-    //       function handleUserFormSubmit(event) {
-    //         // Don't do anything if the name fields hasn't been filled out
-    //         if (!name) {
-    //           return;
-    //         }
-    //         // Calling the upsertUser function and passing in the value of the name input
-    //         upsertUser({
-    //           name: name,
-    //           email: email
-    //         });
-    //       }
-
-    //       function upsertUser(userData) {
-    //         $.post("/api/users", userData);
-    //       }
-    //       handleUserFormSubmit();
-    //     // location.reload();
-    // });
-
-    // $("#login-user").on("click", function(event) {
-    //     // Don't refresh the page!
-    //     event.preventDefault();
-
-    //     name = $("#name-login").val().trim();
-    //     email = $("#email-login").val().trim();
-    //     password = $("#password-login").val().trim();
-
-    //     firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-    //         // Handle Errors here.
-    //         var errorCode = error.code;
-    //         var errorMessage = error.message;
-    //         // ...
-    //     });
-
-    //     // Testing if we're signed in
-    //     firebase.auth().onAuthStateChanged(function(user) {
-    //         if (user) {
-
-    //             //Search for the correct email, return an ID
-    //             db.user.findOne({
-    //               where: {
-    //                 email: email
-    //               },
-    //             }).then(function(dbuser) {
-    //               var userID = dbuser.id;
-    //             });
-
-    //             // Clear sessionStorage
-    //             sessionStorage.clear();
-
-    //             // Store all content into sessionStorage
-    //             sessionStorage.setItem("userID", userID);
-    //             console.log("Storage userID: " + userID);
-
-    //             console.log("User logged in");
-    //             database.ref(name).set({
-    //                 name: name,
-    //                 email: email,
-    //                 password: password
-    //             });
-    //         } else {
-    //             console.log("Not signed in");
-    //         }
-    //     });
-
-    //     // location.reload();
-    // });
-
-    // $("#signout-user").on("click", function(event) {
-    //     firebase.auth().signOut().then(function() {
-    //       console.log("Sign-out successful.");
-    //       sessionStorage.clear();
-    //     }).catch(function(error) {
-    //       // An error happened.
-    //     });
-    // });
-
-
-
-    // // Firebase watcher + initial loader HINT: .on("value")
-    // // database.ref().on("value", function(snapshot) {
-
-    //     // Log everything that's coming out of snapshot
-    //     // console.log(snapshot.val());
-    //     // console.log(snapshot.val().name);
-    //     // console.log(snapshot.val().email);
-
-    //     // Change the HTML to reflect
-    //     // $("#name-display").text(snapshot.val().name);
-    //     // $("#email-display").text(snapshot.val().email);
-
-    //     // Handle the errors
-    // // }, function(errorObject) {
-    // //     console.log("Errors handled: " + errorObject.code);
-    // // });
-    </script>
+    <script src="./js/home.js"></script>
 </body>
 
 </html>
