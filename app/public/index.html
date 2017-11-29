@@ -2,39 +2,76 @@
 <html>
 <head>
   <title>Home Page</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" media="screen" title="no title">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 
 <body>
   <div class="container">
     <nav class="navbar navbar-default">
       <div class="container-fluid">
-        <div class="nav navbar-nav navbar-right">
+        <a class="navbar-brand" href="./index.html">My Favorite Homeowner</a>
+        
+        <form class="navbar-form navbar-right" role="search">
+          <!-- <div class="form-group">
+            <input type="text" class="form-control" placeholder="Homeowner">
+          </div>
+          <button type="submit" class="btn btn-default">Search</button> -->
+
           <a href="./home.html">
-            <button type="button" class="btn btn-default navbar-btn">Sign in</button>
-        </a>
-      </div>  
+            <button type="button" class="btn btn-default">Sign in</button>
+          </a>
+        </form>
+
       </div>
     </nav>
 
     <br>
-        <!-- Jumbotron -->
-        <div class="jumbotron">
-            <h1 class="text-center">Welcome to ____ _____ _____</h1>
-        </div>
+    <!-- Jumbotron -->
+    <div class="jumbotron">
+        <h1 class="text-center">Welcome to My Favorite Homeowner</h1>
+        <h2 class="text-center">Take back control and find the owners you want to work for!</h2>
+    </div>
+    <div class="row">
 
-        <div class="row">
-          <div class="col-lg-12">
-            <h1 class="text-center">Main Area</h1>
+      <div class="col-lg-12">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>Homeowner Search</strong></h3>
+          </div>
+          <div class="panel-body">
+            <input type="text" id="homeowner-search" class="form-control">
             <br>
-            <div class="text-center">
-              <a href="#">
-                <button class="btn btn-default" id="send-search" type="submit">Search Homeowners</button>
-              </a>
+            <div class="text-right">
+              <button type="submit" class="btn btn-primary btn-md" id="search-btn"><span class="glyphicon glyphicon-search"></span> Find Homeowner</button>
+              
             </div>
           </div>
         </div>
+      </div>      
+    </div>
+    <div class="row">
+
+      <div class="col-lg-12">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>Homeowner Info</strong></h3>
+          </div>
+          <div class="panel-body" id="well-section">
+
+            <!-- Content will go in here -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
+  <script src="./js/index.js"></script>
 
 </body>
 </html>

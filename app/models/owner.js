@@ -1,5 +1,10 @@
 module.exports = function(sequelize, DataTypes) {
   var Owner = sequelize.define("owner", {
+    // routeName: {
+    //     type: DataTypes.TEXT,
+    //     allowNull: false,
+    //     len: [1]
+    // },
     name: {
       	type: DataTypes.TEXT,
       	allowNull: false,

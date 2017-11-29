@@ -55,11 +55,14 @@ $("#add-user").on("click", function(event) {
         });
       }
 
-      function upsertUser(userData) {
+    function upsertUser(userData) {
         $.post("/api/users", userData);
-      }
-      handleUserFormSubmit();
-    // location.reload();
+    }
+    handleUserFormSubmit();
+
+    $("#name-input").val("");
+    $("#email-input").val("");
+    $("#password-input").val("");
 });
 
 $("#login-user").on("click", function(event) {
@@ -100,7 +103,14 @@ $("#login-user").on("click", function(event) {
                 email: email,
                 password: password
             });
+
+            function goToBlog() {
+                window.location.href = "./blog";
+            };
+
+            goToBlog();
         } else {
+            // alert("Incorrect Password");
             console.log("Not signed in");
         }
     });
@@ -110,9 +120,10 @@ $("#login-user").on("click", function(event) {
 
 $("#signout-user").on("click", function(event) {
     firebase.auth().signOut().then(function() {
-      console.log("Sign-out successful.");
-      sessionStorage.clear();
+        console.log("Sign-out successful.");
+        sessionStorage.clear();
+
     }).catch(function(error) {
-      // An error happened.
+        // An error happened.
     });
 });

@@ -32,7 +32,7 @@ $(document).ready(function() {
       .then(getOwners);
   }
 
-  // Function for creating a new list row for authors
+  // Function for creating a new list row for owners
   function createOwnerRow(ownerData) {
     var newTr = $("<tr>");
     newTr.data("owner", ownerData);
