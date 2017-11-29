@@ -104,8 +104,11 @@ $("#login-user").on("click", function(event) {
                 password: password
             });
 
-            // $('<a href=" '+  +' ">' + desiredText +' </a>').appendTo($('body'));
-            $("<a href='./blog.html'></a>").appendTo($("#login-user"));
+            function goToBlog() {
+                window.location.href = "./blog";
+            };
+
+            goToBlog();
         } else {
             // alert("Incorrect Password");
             console.log("Not signed in");
@@ -117,9 +120,10 @@ $("#login-user").on("click", function(event) {
 
 $("#signout-user").on("click", function(event) {
     firebase.auth().signOut().then(function() {
-      console.log("Sign-out successful.");
-      sessionStorage.clear();
+        console.log("Sign-out successful.");
+        sessionStorage.clear();
+
     }).catch(function(error) {
-      // An error happened.
+        // An error happened.
     });
 });

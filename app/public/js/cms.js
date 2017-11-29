@@ -33,6 +33,7 @@ $(document).ready(function() {
     var ownerSelect = $("owner");
 
     // Adding an event listener for when the form is submitted
+    $(document).on("submit", "#owner-form", handleOwnerFormSubmit);
     $(cmsForm).on("submit", handleFormSubmit);
 
     // Gets the part of the url that comes after the "?" (which we have if we're updating a post)
@@ -56,6 +57,57 @@ $(document).ready(function() {
     }
 
     getUsers();
+
+    // A function to handle what happens when the form is submitted to create a new Owner
+    function handleOwnerFormSubmit(event) {
+      event.preventDefault();
+      // Don't do anything if the name fields hasn't been filled out
+      if (!nameInput.val().trim().trim()) {
+        return;
+      }
+      // Calling the upsertOwner function and passing in the value of the name input
+      upsertOwner({
+        name: nameInput
+          .val()
+          .trim()
+      });
+    }
+
+    // A function for creating an owner. Calls getOwners upon completion
+    function upsertOwner(ownerData) {
+      $.post("/api/owners", ownerData)
+        .then(getOwners);
+    }
+
+    // Function for retrieving owners and getting them ready to be rendered to the page
+    function getOwners() {
+      // $.get("/api/owners", function(data) {
+      //   var rowsToAdd = [];
+      //   for (var i = 0; i < data.length; i++) {
+      //     rowsToAdd.push(createOwnerRow(data[i]));
+      //   }
+      //   renderOwnerList(rowsToAdd);
+      //   nameInput.val("");
+      // });
+
+      $.get("/api/owners", renderOwnerList);
+    }
+
+    // A function for rendering the list of owners to the page
+
+    // make this like the renderUserList, but why is that one blanked out???
+    
+    function renderOwnerList(rows) {
+      ownerList.children().not(":last").remove();
+      ownerContainer.children(".alert").remove();
+      if (rows.length) {
+        console.log(rows);
+        ownerList.prepend(rows);
+      }
+      // else {
+      //   renderEmpty();
+      // }
+    }
 
     // A function for handling what happens when the form to create a new post is submitted
     function handleFormSubmit(event) {
@@ -120,20 +172,20 @@ $(document).ready(function() {
         });
     }
 
-    // A function to get Authors and then render our list of Authors
+    // A function to get user and then render our list of users
     function getUsers() {
-      $.get("/api/users", renderAuthorList);
+      $.get("/api/users", renderUserList);
     }
-    //Function to either render a list of authors, or if there are none, direct the user to the page
-    //to create an author first
-    function renderAuthorList(data) {
+    //Function to either render a list of user, or if there are none, direct the user to the page
+    //to create a user first
+    function renderUserList(data) {
       if (!userSelect) {
-        window.location.href = "/users";
+        window.location.href = "/user-manager";
       }
       $(".hidden").removeClass("hidden");
       // var rowsToAdd = [];
       // for (var i = 0; i < data.length; i++) {
-      //   rowsToAdd.push(createAuthorRow(data[i]));
+      //   rowsToAdd.push(createUserRow(data[i]));
       // }
       // userSelect.empty();
       // console.log(rowsToAdd);
@@ -143,7 +195,7 @@ $(document).ready(function() {
     }
 
     // Creates the author options in the dropdown
-    function createAuthorRow(user) {
+    function createUserRow(user) {
       var listOption = $("<option>");
       listOption.attr("value", user.id);
       listOption.text(user.name);
