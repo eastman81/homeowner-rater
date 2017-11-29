@@ -57,7 +57,7 @@ $(document).ready(function() {
     }
 
     getUsers();
-
+  
     // A function to handle what happens when the form is submitted to create a new Owner
     function handleOwnerFormSubmit(event) {
       event.preventDefault();
@@ -181,11 +181,13 @@ $(document).ready(function() {
     function renderUserList(data) {
       if (!userSelect) {
         window.location.href = "/user-manager";
+
       }
       $(".hidden").removeClass("hidden");
       // var rowsToAdd = [];
       // for (var i = 0; i < data.length; i++) {
       //   rowsToAdd.push(createUserRow(data[i]));
+
       // }
       // userSelect.empty();
       // console.log(rowsToAdd);
@@ -196,6 +198,7 @@ $(document).ready(function() {
 
     // Creates the author options in the dropdown
     function createUserRow(user) {
+
       var listOption = $("<option>");
       listOption.attr("value", user.id);
       listOption.text(user.name);
