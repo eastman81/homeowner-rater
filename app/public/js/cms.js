@@ -179,10 +179,10 @@ $(document).ready(function() {
     //Function to either render a list of user, or if there are none, direct the user to the page
     //to create a user first
     function renderUserList(data) {
-      if (!userSelect) {
-        window.location.href = "/user-manager";
+      // if (!userSelect) {
+      //   window.location.href = "/user-manager";
 
-      }
+      // }
       $(".hidden").removeClass("hidden");
       // var rowsToAdd = [];
       // for (var i = 0; i < data.length; i++) {
