@@ -4,9 +4,8 @@ $("#search-btn").on("click", function() {
   var searchedOwner = $("#homeowner-search").val().trim();
 
   // replace any spaces between that character with no space
-  // (effectively deleting the spaces). Make the string lowercase
-  
-  // searchedOwner = searchedOwner.replace(/\s+/g, "").toLowerCase();
+  //(effectively deleting the spaces). Make the string lowercase
+  searchedOwner = searchedOwner.replace(/\s+/g, "").toLowerCase();
 
   // run an AJAX GET-request for our servers api,
   // including the user's character in the url

@@ -11,13 +11,27 @@ module.exports = function(app) {
 
   // Search for Specific owner, then provides JSON
   app.get("/api/:owners?", function(req, res) {
-    db.owner.findOne({
-      where: {
-        name: req.params.owners
-      }
-    }).then(function(result) {
-      res.json(result);
-    });
+    
+    if (req.params.owners){
+      db.owner.findOne({
+        where: {
+          routeName: req.params.owners
+        }
+      }).then(function(result) {
+        res.json(result);
+      });
+    }
+
+    // Otherwise...
+    else {
+      // Otherwise display the data for all of the characters.
+      // (Note how we're using Sequelize here to run our searches)
+      db.owner.findAll({})
+        .then(function(result) {
+          return res.json(result);
+        });
+    }
+
   });
 
   app.get("/api/owners/:id", function(req, res) {
@@ -32,11 +46,14 @@ module.exports = function(app) {
   });
 
   app.post("/api/owners", function(req, res) {
-    // var routeName = character.name.replace(/\s+/g, "").toLowerCase();
-
+    
     db.owner.create(req.body).then(function(dbowner) {
       res.json(dbowner);
     });
+
+    console.log("Route created :" + req.body.routeName);
+
+
   });
 
   app.delete("/api/owners/:id", function(req, res) {

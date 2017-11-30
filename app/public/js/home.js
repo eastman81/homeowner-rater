@@ -60,14 +60,21 @@ $("#add-user").on("click", function(event) {
     }
     handleUserFormSubmit();
 
+    //Clears values in form
     $("#name-input").val("");
     $("#email-input").val("");
     $("#password-input").val("");
+
 });
 
 $("#login-user").on("click", function(event) {
     // Don't refresh the page!
     event.preventDefault();
+
+    //Clears values in variables
+    name = "";
+    email = "";
+    password = "";
 
     name = $("#name-login").val().trim();
     email = $("#email-login").val().trim();
@@ -94,21 +101,17 @@ $("#login-user").on("click", function(event) {
 
                 // Store all content into sessionStorage
                 sessionStorage.setItem("userID", response);
-                console.log("Storage userID: " + response);
-            });
+                console.log("Storing userID: " + response);
 
-            console.log("User logged in");
-            database.ref(name).set({
-                name: name,
-                email: email,
-                password: password
+                //Send us to blog page after successful login 
+                goToBlog();
             });
 
             function goToBlog() {
                 window.location.href = "./blog";
             };
 
-            goToBlog();
+
         } else {
             // alert("Incorrect Password");
             alert("Not signed in");
