@@ -111,7 +111,7 @@ $("#login-user").on("click", function(event) {
             goToBlog();
         } else {
             // alert("Incorrect Password");
-            console.log("Not signed in");
+            alert("Not signed in");
         }
     });
 
