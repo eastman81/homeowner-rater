@@ -22,6 +22,8 @@ $(document).ready(function() {
   var authorId;
   var ownerId;
 
+  var routeInput;
+
   // Sets a flag for whether or not we're updating a post to be false initially
   var updating = false;
 
@@ -33,7 +35,7 @@ $(document).ready(function() {
   }
   // Otherwise if we have an author_id in our url, preset the author select box to be our Author
   else if (url.indexOf("?user_id=") !== -1) {
-    authorId = url.split("=")[1];
+    userId = url.split("=")[1];
   }
 
   getUsers();
@@ -73,7 +75,7 @@ $(document).ready(function() {
       return;
     }
     else{
-      var routeInput = nameInput.val().trim().trim();
+      routeInput = nameInput.val().trim().trim();
       routeInput = routeInput.replace(/\s+/g, "").toLowerCase();
 
       console.log("Route name created: " + routeInput);
@@ -95,16 +97,19 @@ $(document).ready(function() {
       .done(function(data) {
         console.log(data);
         alert("Added new owner...");
-      });
+      })
+      .then(getOwner);
 
-    getOwner();
+    // getOwner();
   }
 
   // Function for retrieving authors and getting them ready to be rendered to the page
   function getOwner() {
-    var searchedOwner = $(nameInput).val().trim();
+    // var searchedOwner = $(nameInput).val().trim();
+    routeInput = nameInput.val().trim().trim();
+    routeInput = routeInput.replace(/\s+/g, "").toLowerCase();
 
-    $.get("/api/" + searchedOwner, function(data) {
+    $.get("/api/" + routeInput, function(data) {
         ownerSelect = data.id
         ownerSelectName = data.name
     });
@@ -165,7 +170,7 @@ $(document).ready(function() {
               // If this post exists, prefill our cms forms with its data
               ratingInput.val(data.title);
               commentInput.val(data.body);
-              authorId = data.authorId || data.id;
+              userId = data.userId || data.id;
               // If we have a post with this id, set a flag for us to know to update the post
               // when we hit submit
               updating = true;
