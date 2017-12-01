@@ -60,6 +60,9 @@ $("#add-user").on("click", function(event) {
     }
     handleUserFormSubmit();
 
+    console.log(name);
+    console.log(email);
+
     $("#name-input").val("");
     $("#email-input").val("");
     $("#password-input").val("");
