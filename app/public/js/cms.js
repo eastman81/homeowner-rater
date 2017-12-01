@@ -8,6 +8,7 @@ $(document).ready(function() {
   var nameInput = $("#owner-name");
   // var cmsForm = $("#submitRating");
   var userSelect = sessionStorage.getItem("userID");
+  var ownerSel = $("#owner");
   var ownerSelect;
   var ownerSelectName;
 
@@ -36,6 +37,33 @@ $(document).ready(function() {
   }
 
   getUsers();
+  getOwners();
+
+  // Function to get all created owners displayed
+  function getOwners() {
+    $.get("/api/owners", renderOwnerList);
+  }
+  // Function to render a list of owners
+  function renderOwnerList(data) {
+    $(".hidden").removeClass("hidden");
+    var rowsToAdd = [];
+    for (var i = 0; i < data.length; i++) {
+      rowsToAdd.push(createOwnerRow(data[i]));
+    }
+    ownerSel.empty();
+    console.log(rowsToAdd);
+    console.log(ownerSel);
+    ownerSel.append(rowsToAdd);
+    ownerSel.val(ownerId);
+  }
+
+  // Creates the owner options in the dropdown
+  function createOwnerRow(owner) {
+    var listOption = $("<option>");
+    listOption.attr("value", owner.id);
+    listOption.text(owner.name);
+    return listOption;
+  }
 
   // A function to handle what happens when the form is submitted to create a new Owner
   function handleOwnerFormSubmit(event) {
@@ -170,13 +198,13 @@ $(document).ready(function() {
   }
 
   // Creates the author options in the dropdown
-  function createUserRow(user) {
+  // function createUserRow(user) {
 
-    var listOption = $("<option>");
-    listOption.attr("value", user.id);
-    listOption.text(user.name);
-    return listOption;
-  }
+  //   var listOption = $("<option>");
+  //   listOption.attr("value", user.id);
+  //   listOption.text(user.name);
+  //   return listOption;
+  // }
 
   // Update a given post, bring user to the blog page when done
   function updatePost(post) {
