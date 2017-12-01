@@ -44,12 +44,20 @@ $(document).ready(function() {
     if (!nameInput.val().trim().trim()) {
       return;
     }
-    // Calling the upsertOwner function and passing in the value of the name input
-    upsertOwner({
-      name: nameInput
-      .val()
-      .trim()
-    });
+    else{
+      var routeInput = nameInput.val().trim().trim();
+      routeInput = routeInput.replace(/\s+/g, "").toLowerCase();
+
+      console.log("Route name created: " + routeInput);
+
+      // Calling the upsertAuthor function and passing in the value of the name input
+      upsertOwner({
+        name: nameInput
+          .val()
+          .trim(),
+        routeName: routeInput
+      });
+    }
   }
 
   // A function for creating an owner. Calls getOwners upon completion

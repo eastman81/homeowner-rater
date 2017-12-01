@@ -23,8 +23,10 @@ $("#search-btn").on("click", function() {
       // append the owner name
       $("#well-section").append("<h2>" + data.name + "</h2>");
       
-      // the rating
-      // $("#well-section").append("<h3>Rating: " + data.rating + "</h3>");
+      // get the ratings
+      $.get("/api/posts/" + data.id, function(data) {
+        console.log(data);
+        });    
     }
 
   });
