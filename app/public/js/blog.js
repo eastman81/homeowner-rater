@@ -93,7 +93,7 @@ $(document).ready(function() {
     var newPostPanelBody = $("<div>");
     newPostPanelBody.addClass("panel-body");
     var newPostBody = $("<p>");
-    newPostTitle.text(post.rating + " ");
+    newPostTitle.text("Owner Rating: " + post.rating + " ");
     newPostBody.text(post.comment);
     newPostDate.text(formattedDate);
     newPostTitle.append(newPostDate);
