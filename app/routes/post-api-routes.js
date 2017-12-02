@@ -12,7 +12,25 @@ var db = require("../models");
 // =============================================================
 module.exports = function(app) {
 
-  // GET route for getting all of the posts
+  // GET route for getting all of the posts based on OWNER ID
+  app.get("/api/postsfromowner", function(req, res) {
+    var query = {};
+    if (req.query.owner_Id) {
+      query.ownerId = req.query.owner_Id;
+    }
+    else{
+      console.log("No Query Found");
+    }
+
+    db.post.findAll({
+      where: query,
+      include: [db.owner]
+    }).then(function(dbpost) {
+      res.json(dbpost);
+    });
+  });
+
+  // GET route for getting all of the posts based on USER ID 
   app.get("/api/posts", function(req, res) {
     var query = {};
     if (req.query.user_id) {
