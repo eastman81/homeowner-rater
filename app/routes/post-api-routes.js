@@ -54,6 +54,7 @@ module.exports = function(app) {
     db.post.findAll({
       where: query,
       include: [db.user]
+      // include: [db.owner]
     }).then(function(dbpost) {
       res.json(dbpost);
     });

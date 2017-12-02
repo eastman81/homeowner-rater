@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  // Getting jQuery references to the post body, title, form, and author select
+  // Getting jQuery references to the post body, title, form, and owner select
   var commentInput = $("#comments");
   var ratingInput = $("#rating");
   var nameInput = $("#owner-name");

@@ -14,20 +14,20 @@ $(document).ready(function() {
   var ownerName;
 
   // This code finds the posts of the current user, which is stored in local storage.
-  var authorId = sessionStorage.getItem("userID");
-  getPosts(authorId);
+  var userId = sessionStorage.getItem("userID");
+  getPosts(userId);
 
   // This function grabs posts from the database and updates the view
-  function getPosts(author) {
-    authorId = author || "";
-    if (authorId) {
-      authorId = "/?user_id=" + authorId;
+  function getPosts(user) {
+    userId = user || "";
+    if (userId) {
+      userId = "/?user_id=" + userId;
     }
-    $.get("/api/posts" + authorId, function(data) {
+    $.get("/api/posts" + userId, function(data) {
       console.log("Posts", data);
       posts = data;
       if (!posts || !posts.length) {
-        displayEmpty(author);
+        displayEmpty(user);
       }
       else {
         initializeRows();
@@ -54,17 +54,17 @@ $(document).ready(function() {
       url: "/api/owners/" + post.ownerId
     })
     .done(function(data) {
-      console.log(data);
-      console.log(data.name);
+      // console.log(data);
+      // console.log(data.name);
       ownerName = data.name
-      console.log(ownerName);
+      // console.log(ownerName);
 
-      return ownerName;
+      // return ownerName;
     });
-    console.log(ownerName);
+    // console.log(ownerName);
   }
 
-  console.log(ownerName);
+  // console.log(ownerName);
 
   // InitializeRows handles appending all of our constructed post HTML inside blogContainer
   function initializeRows() {
@@ -92,9 +92,9 @@ $(document).ready(function() {
     editBtn.addClass("edit btn btn-info");
     var newPostTitle = $("<h2>");
     var newPostDate = $("<small>");
-    var newPostAuthor = $("<h5>");
-    newPostAuthor.text("Written by: " + post.user.name);
-    newPostAuthor.css({
+    var newPostUser = $("<h5>");
+    newPostUser.text("Written by: " + post.user.name);
+    newPostUser.css({
       float: "right",
       color: "blue",
       "margin-top":
@@ -104,10 +104,10 @@ $(document).ready(function() {
     newPostPanelBody.addClass("panel-body");
     var newPostBody = $("<p>");
 
-    getOwnerName(post);
-    console.log(ownerName);
+    // getOwnerName(post);
+    // console.log(ownerName);
 
-    newPostTitle.text("Owner " + ownerName + " Rating: " + post.rating + " ");
+    newPostTitle.text("Owner " + post.ownerId + " Rating: " + post.rating + " ");
     
     newPostBody.text(post.comment);
     newPostDate.text(formattedDate);
@@ -115,7 +115,7 @@ $(document).ready(function() {
     newPostPanelHeading.append(deleteBtn);
     newPostPanelHeading.append(editBtn);
     newPostPanelHeading.append(newPostTitle);
-    newPostPanelHeading.append(newPostAuthor);
+    newPostPanelHeading.append(newPostUser);
     newPostPanelBody.append(newPostBody);
     newPostPanel.append(newPostPanelHeading);
     newPostPanel.append(newPostPanelBody);

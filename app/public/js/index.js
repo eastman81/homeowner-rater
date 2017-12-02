@@ -38,9 +38,7 @@ $("#search-btn").on("click", function() {
       $.get("/api/dapost/" + data.id, function(data2) {
         console.log(data2);
 
-
         $("#well-section").append("<h2>" + data2 + "</h2>");
-
 
         });    
     }

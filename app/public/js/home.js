@@ -114,14 +114,11 @@ $("#login-user").on("click", function(event) {
                 window.location.href = "./blog";
             };
 
-
         } else {
             // alert("Incorrect Password");
             alert("Not signed in");
         }
     });
-
-    // location.reload();
 });
 
 $("#signout-user").on("click", function(event) {
