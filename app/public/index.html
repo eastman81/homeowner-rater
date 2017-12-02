@@ -1,77 +1,154 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
   <title>Home Page</title>
+
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+  <meta name="viewport" content="width=device-width" />
+
+  <!-- CSS -->
   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet">
+  <link href="css/animate.min.css" rel="stylesheet"/>
+  <link href="css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
   <link rel="stylesheet" href="css/styles.css" media="screen" title="no title">
+  <!-- Scripts -->
   <script src="https://code.jquery.com/jquery.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <!--     Fonts and icons     -->
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+  <link href="css/pe-icon-7-stroke.css" rel="stylesheet"/>
+
 </head>
 
 <body>
-  <div class="container">
+  <div class="sidebar" data-color="orange" data-image="img/sidebar-5.jpg">
+    <!-- change the color of the sidebar: "blue | azure | green | orange | red | purple" -->
+      
+    <div class="sidebar-wrapper">
+      <div class="logo">
+        <a href="./index.html" class="simple-text">
+          My Favorite Homeowner
+        </a>
+      </div>
+
+      <ul class="nav">
+        <li class="active">
+          <a href="#">
+            <i class="pe-7s-info"></i>
+            <p>Why Use This Site</p>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="pe-7s-id"></i>
+            <p>About the Creators</p>
+          </a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="main-panel">
     <nav class="navbar navbar-default">
       <div class="container-fluid">
-        <a class="navbar-brand" href="./index.html">My Favorite Homeowner</a>
-        
-        <form class="navbar-form navbar-right" role="search">
-          <!-- <div class="form-group">
-            <input type="text" class="form-control" placeholder="Homeowner">
-          </div>
-          <button type="submit" class="btn btn-default">Search</button> -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-left">
+          </ul>
 
-          <a href="./home.html">
-            <button type="button" class="btn btn-default">Sign in</button>
-          </a>
-        </form>
+          <ul class="nav navbar-nav navbar-right">
+              <a href="./home.html">
+                <button type="button" class="btn btn-default">Sign in</button>
+              </a>
+          </ul>
 
+        </div>
       </div>
     </nav>
 
-    <br>
-    <!-- Jumbotron -->
-    <div class="jumbotron">
-        <h1 class="text-center">Welcome to My Favorite Homeowner</h1>
-        <h2 class="text-center">Take back control and find the owners you want to work for!</h2>
-    </div>
-    <div class="row">
-
-      <div class="col-lg-12">
-
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><strong>Homeowner Search</strong></h3>
-          </div>
-          <div class="panel-body">
-            <input type="text" id="homeowner-search" class="form-control">
-            <br>
-            <div class="text-right">
-              <button type="submit" class="btn btn-primary btn-md" id="search-btn"><span class="glyphicon glyphicon-search"></span> Find Homeowner</button>
-              
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <h1 class="text-center">Welcome to My Favorite Homeowner</h1>
+              <h2 class="text-center">Take back control and find the homeowners<br/> you want to work for!</h2>
             </div>
           </div>
         </div>
-      </div>      
-    </div>
-    <div class="row">
+        <div class="row">
 
-      <div class="col-lg-12">
+          <div class="col-lg-12">
 
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><strong>Homeowner Info</strong></h3>
-          </div>
-          <div class="panel-body" id="well-section">
+            <div class="card">
+              <div class="header">
+                <h3 class="panel-title"><strong>Homeowner Search</strong></h3>
+              </div>
+              <div class="panel-body">
+                <input type="text" id="homeowner-search" class="form-control">
+                <br>
+                <div class="text-right">
+                  <button type="submit" class="btn btn-primary btn-md" id="search-btn"><span class="glyphicon glyphicon-search"></span> Find a Homeowner</button>
 
-            <!-- Content will go in here -->
+                </div>
+              </div>
+            </div>
+          </div>      
+        </div>
+        <div class="row">
 
+          <div class="col-lg-12">
+            <div id="ownerList-section">
+              <!-- <div class="card">
+                <div class="header">
+                  <h3 class="panel-title"><strong>Homeowner Info</strong></h3>
+                </div>
+                <div class="panel-body" id="well-section"> -->
+
+                  <!-- Content will go in here -->
+
+                <!-- </div>
+              </div> -->
+            </div>
           </div>
         </div>
       </div>
     </div>
 
   </div>
+
   <script src="./js/index.js"></script>
+  <!-- LIght bootstrap JS -->
+  <script src="js/light-bootstrap-dashboard.js?v=1.4.0"></script>
+  <!--  Notifications Plugin    -->
+  <script src="js/bootstrap-notify.js"></script>
+
+  <script type="text/javascript">
+      $(document).ready(function(){
+
+          $.notify({
+              message: "Welcome to <b>My Favorite Homeowner</b> - Click sign in to create an account, or search for a homeowner in your area.",
+              icon: 'pe-7s-bell',
+            },{
+                type: 'info',
+                timer: 4000
+            });
+
+      });
+  </script>
 
 </body>
 </html>

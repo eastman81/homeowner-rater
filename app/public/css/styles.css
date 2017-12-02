@@ -10,6 +10,10 @@ form#cms {
   resize: none;
 }
 
+#title {
+  color: #2d3f51;
+}
+
 .panel-heading button.delete,
 button.edit {
   float: right;
