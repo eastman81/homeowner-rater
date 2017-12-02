@@ -35,8 +35,13 @@ $("#search-btn").on("click", function() {
       $("#well-section").append("<h2>" + data.name + "</h2>");
       
       // get the ratings
-      $.get("/api/postsfromowner/" + data.id, function(data) {
-        console.log(data);
+      $.get("/api/dapost/" + data.id, function(data2) {
+        console.log(data2);
+
+
+        $("#well-section").append("<h2>" + data2 + "</h2>");
+
+
         });    
     }
 
