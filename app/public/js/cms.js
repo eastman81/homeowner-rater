@@ -1,16 +1,17 @@
-console.log("Test 1");
-
 $(document).ready(function() {
 
   // Getting jQuery references to the post body, title, form, and author select
   var commentInput = $("#comments");
   var ratingInput = $("#rating");
   var nameInput = $("#owner-name");
-  // var cmsForm = $("#submitRating");
   var userSelect = sessionStorage.getItem("userID");
   var ownerSel = $("#owner");
-  var ownerSelect;
+  var ownerSelVal; 
+  var ownerIdSelect;
   var ownerSelectName;
+  var ownerId2Select;
+  var ownerSelect2Name;
+  var ownerIdFromValue;
 
   // Adding an event listener for when the form is submitted
   $("#submitOwner").on("click", handleOwnerFormSubmit);
@@ -19,7 +20,6 @@ $(document).ready(function() {
   // Gets the part of the url that comes after the "?" (which we have if we're updating a post)
   var url = window.location.search;
   var postId;
-  var authorId;
   var ownerId;
 
   var routeInput;
@@ -33,22 +33,23 @@ $(document).ready(function() {
     postId = url.split("=")[1];
     getPostData(postId, "post");
   }
-  // Otherwise if we have an author_id in our url, preset the author select box to be our Author
+  // Otherwise if we have an user_id in our url, preset the user select box to be our User
   else if (url.indexOf("?user_id=") !== -1) {
     userId = url.split("=")[1];
   }
 
-  getUsers();
   getOwners();
 
   // Function to get all created owners displayed
   function getOwners() {
     $.get("/api/owners", renderOwnerList);
   }
+
   // Function to render a list of owners
   function renderOwnerList(data) {
     $(".hidden").removeClass("hidden");
     var rowsToAdd = [];
+
     for (var i = 0; i < data.length; i++) {
       rowsToAdd.push(createOwnerRow(data[i]));
     }
@@ -64,6 +65,8 @@ $(document).ready(function() {
     var listOption = $("<option>");
     listOption.attr("value", owner.id);
     listOption.text(owner.name);
+    console.log(owner.id);
+
     return listOption;
   }
 
@@ -80,7 +83,7 @@ $(document).ready(function() {
 
       console.log("Route name created: " + routeInput);
 
-      // Calling the upsertAuthor function and passing in the value of the name input
+      // Calling the upsertOwner function and passing in the value of the name input
       upsertOwner({
         name: nameInput
           .val()
@@ -99,18 +102,15 @@ $(document).ready(function() {
         alert("Added new owner...");
       })
       .then(getOwner);
-
-    // getOwner();
   }
 
-  // Function for retrieving authors and getting them ready to be rendered to the page
+  // Function for retrieving owners and getting them ready to be rendered to the page
   function getOwner() {
-    // var searchedOwner = $(nameInput).val().trim();
     routeInput = nameInput.val().trim().trim();
     routeInput = routeInput.replace(/\s+/g, "").toLowerCase();
 
     $.get("/api/" + routeInput, function(data) {
-        ownerSelect = data.id
+        ownerSelVal = data.id
         ownerSelectName = data.name
     });
   }
@@ -118,21 +118,37 @@ $(document).ready(function() {
   // A function for handling what happens when the form to create a new post is submitted
   function handleFormSubmit(event) {
     event.preventDefault();
-      // Wont submit the post if we are missing a body, title, or author
+      // Wont submit the post if we are missing a rating or comment
       if (!ratingInput.val().trim() || !commentInput.val().trim() ) {
         return;
       }
+
       // Constructing a newPost object to hand to the database
-      var newPost = {
-        rating: ratingInput
-        .val()
-        .trim(),
-        comment: commentInput
-        .val()
-        .trim(),
-        userId: userSelect,
-        ownerId: ownerSelect
+      if (nameInput.val().trim()) {
+        var newPost = {
+          rating: ratingInput
+          .val()
+          .trim(),
+          comment: commentInput
+          .val()
+          .trim(),
+          userId: userSelect,
+          ownerId: ownerSelVal
         };
+      } else {
+        ownerSelVal = ownerSel.val().trim();
+
+        var newPost = {
+          rating: ratingInput
+          .val()
+          .trim(),
+          comment: commentInput
+          .val()
+          .trim(),
+          userId: userSelect,
+          ownerId: ownerSelVal
+        };
+      }
 
       // If we're updating a post run updatePost to update a post
       // Otherwise run submitPost to create a whole new post
@@ -151,14 +167,14 @@ $(document).ready(function() {
     });
   }
 
-  // Gets post data for the current post if we're editing, or if we're adding to an author's existing posts
+  // Gets post data for the current post if we're editing, or if we're adding to an user's existing posts
   function getPostData(id, type) {
     var queryUrl;
     switch (type) {
       case "post":
       queryUrl = "/api/posts/" + id;
       break;
-      case "author":
+      case "user":
       queryUrl = "/api/users/" + id;
       break;
       default:
@@ -177,39 +193,6 @@ $(document).ready(function() {
             }
           });
   }
-
-  // A function to get user and then render our list of users
-  function getUsers() {
-    $.get("/api/users", renderUserList);
-  }
-  //Function to either render a list of user, or if there are none, direct the user to the page
-  //to create a user first
-  function renderUserList(data) {
-    // if (!userSelect) {
-    //   window.location.href = "/user-manager";
-
-    // }
-    $(".hidden").removeClass("hidden");
-    // var rowsToAdd = [];
-    // for (var i = 0; i < data.length; i++) {
-    //   rowsToAdd.push(createUserRow(data[i]));
-
-    // }
-    // userSelect.empty();
-    // console.log(rowsToAdd);
-    // console.log(userSelect);
-    // userSelect.append(rowsToAdd);
-    // userSelect.val(authorId);
-  }
-
-  // Creates the author options in the dropdown
-  // function createUserRow(user) {
-
-  //   var listOption = $("<option>");
-  //   listOption.attr("value", user.id);
-  //   listOption.text(user.name);
-  //   return listOption;
-  // }
 
   // Update a given post, bring user to the blog page when done
   function updatePost(post) {
