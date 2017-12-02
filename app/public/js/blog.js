@@ -10,22 +10,12 @@ $(document).ready(function() {
   // Variable to hold our posts
   var posts;
 
-  //This code finds the posts of the current user, which is stored in local storage.
+  // This assigns an Id for the owner the posts are about
+  var ownerId;
+
+  // This code finds the posts of the current user, which is stored in local storage.
   var authorId = sessionStorage.getItem("userID");
   getPosts(authorId);
-
-  // The code below handles the case where we want to get blog posts for a specific author
-  // Looks for a query param in the url for author_id
-  // var url = window.location.search;
-  // var authorId;
-  // if (url.indexOf("?user_id=") !== -1) {
-  //   authorId = url.split("=")[1];
-  //   getPosts(authorId);
-  // }
-  // // If there's no authorId we just get all posts as usual
-  // else {
-  //   getPosts();
-  // }
 
   // This function grabs posts from the database and updates the view
   function getPosts(author) {
@@ -54,6 +44,11 @@ $(document).ready(function() {
     .done(function() {
       getPosts(postCategorySelect.val());
     });
+  }
+
+  // Function to get the ownerId the post is about
+  function getOwnerId() {
+    $.get("/api/posts/")
   }
 
   // InitializeRows handles appending all of our constructed post HTML inside blogContainer
@@ -136,7 +131,7 @@ $(document).ready(function() {
     blogContainer.empty();
     var messageh2 = $("<h2>");
     messageh2.css({ "text-align": "center", "margin-top": "50px" });
-    messageh2.html("No posts yet" + partial + ", navigate <a href='/cms" + query +
+    messageh2.html("You have no reviews yet, navigate <a href='/cms" + query +
     "'>here</a> in order to get started.");
     blogContainer.append(messageh2);
   }
