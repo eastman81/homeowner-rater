@@ -13,10 +13,12 @@ var db = require("../models");
 module.exports = function(app) {
 
   // GET route for getting all of the posts based on OWNER ID
-  app.get("/api/postsfromowner", function(req, res) {
+  app.get("/api/dapost/:id", function(req, res) {
+    console.log("Is this running?");
+
     var query = {};
-    if (req.query.owner_Id) {
-      query.ownerId = req.query.owner_Id;
+    if (req.params.id) {
+      query.ownerId = req.params.id;
     }
     else{
       console.log("No Query Found");
@@ -26,7 +28,17 @@ module.exports = function(app) {
       where: query,
       include: [db.owner]
     }).then(function(dbpost) {
-      res.json(dbpost);
+      
+      var averageRating = 0; 
+
+      // Logic for math goes in here
+      for (i = 0; i < dbpost.length; i++){
+        averageRating = averageRating + dbpost[i].rating; 
+      }
+
+      averageRating = averageRating / dbpost.length; 
+
+      res.json(averageRating);
     });
   });
 
