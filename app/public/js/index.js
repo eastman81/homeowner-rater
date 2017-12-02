@@ -12,11 +12,22 @@ $("#search-btn").on("click", function() {
    $.get("/api/" + searchedOwner, function(data) {
     // log the data to our console
     console.log(data);
+    
+    $("#ownerList-section").empty();
+    $("#ownerList-section").append(
+      "<div class='card'>" +
+        "<div class='header'>" +
+          "<h3 class='panel-title'><strong>Homeowner Info</strong></h3>" +
+        "</div>" +
+        "<div class='panel-body' id='well-section'>"+
+        "</div>" +
+      "</div>");
+
     //empty to well-section before adding new content
     $("#well-section").empty();
     // if the data is not there, then return an error message
     if (!data) {
-      $("#well-section").append("<h2> Ther are no homeowners by that name, please search again. </h2>");
+      $("#well-section").append("<h2> There are no homeowners by that name, please search again. </h2>");
     }
     // otherwise
     else {

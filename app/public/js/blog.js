@@ -11,7 +11,7 @@ $(document).ready(function() {
   var posts;
 
   // This assigns an Id for the owner the posts are about
-  var ownerId;
+  var ownerName;
 
   // This code finds the posts of the current user, which is stored in local storage.
   var authorId = sessionStorage.getItem("userID");
@@ -46,10 +46,25 @@ $(document).ready(function() {
     });
   }
 
-  // Function to get the ownerId the post is about
-  function getOwnerId() {
-    $.get("/api/posts/")
+  // Function to get the ownerName the post is about
+  function getOwnerName(post) {
+    // $.get("/api/posts/" + id)
+    $.ajax({
+      method: "GET",
+      url: "/api/owners/" + post.ownerId
+    })
+    .done(function(data) {
+      console.log(data);
+      console.log(data.name);
+      ownerName = data.name
+      console.log(ownerName);
+
+      return ownerName;
+    });
+    console.log(ownerName);
   }
+
+  console.log(ownerName);
 
   // InitializeRows handles appending all of our constructed post HTML inside blogContainer
   function initializeRows() {
@@ -88,7 +103,12 @@ $(document).ready(function() {
     var newPostPanelBody = $("<div>");
     newPostPanelBody.addClass("panel-body");
     var newPostBody = $("<p>");
-    newPostTitle.text("Owner Rating: " + post.rating + " ");
+
+    getOwnerName(post);
+    console.log(ownerName);
+
+    newPostTitle.text("Owner " + ownerName + " Rating: " + post.rating + " ");
+    
     newPostBody.text(post.comment);
     newPostDate.text(formattedDate);
     newPostTitle.append(newPostDate);
@@ -131,8 +151,8 @@ $(document).ready(function() {
     blogContainer.empty();
     var messageh2 = $("<h2>");
     messageh2.css({ "text-align": "center", "margin-top": "50px" });
-    messageh2.html("You have no reviews yet, navigate <a href='/cms" + query +
-    "'>here</a> in order to get started.");
+    messageh2.html("You haven't written any reviews yet, click <a href='/cms" + query +
+    "'>here</a> to get started!");
     blogContainer.append(messageh2);
   }
 

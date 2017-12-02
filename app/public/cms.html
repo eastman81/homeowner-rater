@@ -7,6 +7,7 @@
 	
 	<!-- Latest compiled and minified CSS & JS -->
 	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet">
+	<link href="css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
 	<link rel="stylesheet" href="css/styles.css" media="screen" title="no title">
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -23,39 +24,44 @@
     </div>
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<form id="cms">
-					<div class="form-group">
-						<!-- Select owner if already created -->
+				<div class="card">
+					<form id="cms">
 						<div class="form-group">
-							<label for="category">Select an Existing Owner to Review:</label>
-							<select class="form-control" id="owner"></select>
-						</div>
-						
-						<!-- Create owner if need to -->
-						<form id="owner-form">
-							<div class="form-group">
-								<label for="owner-create">Create a New Owner to Review:</label>
-								<input placeholder="Owner Name" id="owner-name" type="text" class="form-control">
-								<br>
-								<button type="submit" class="btn btn-success btn-xs" id="submitOwner">Create Owner</button>
+							<!-- Select owner if already created -->
+							<div class="form-group header">
+								<label for="category"><p>Select an Existing Owner to Review:</p></label>
+								<select class="form-control" id="owner"></select>
 							</div>
-						</form>
+							
+							<!-- Create owner if need to -->
+							<form id="owner-form">
+								<div class="form-group header">
+									<label for="owner-create"><p>Create a New Owner to Review:</p></label>
+									<input placeholder="Owner Name" id="owner-name" type="text" class="form-control">
+									<br>
+									<button type="submit" class="btn btn-success btn-xs" id="submitOwner">Create Owner</button>
+								</div>
+							</form>
 
-						<div class="form-group">
-							<label for="title">Rating:</label>
-							<p>Enter a value between 0 and 5 (0 being the worst, 5 being the best)</p>
-							<input placeholder="Rating" type="text" class="form-control" id="rating">
+							<div class="form-group header">
+								<label for="title"><p>Rating:</p></label>
+								<p style="color: #9A9A9A;">Enter a value between 1 and 5 (1 being the worst, 5 being the best)</p>
+								<input placeholder="Rating" type="text" class="form-control" id="rating">
+							</div>
+							<div class="form-group header">
+								<label for="body"><p>Comments:</p></label>
+								<textarea placeholder="Enter comments about your experience here" class="form-control" rows="10" id="comments"></textarea>
+								<br>
+							</div>
+													
+							<button type="submit" class="btn btn-success submit" id="submitRating">Submit Rating!</button>
 						</div>
-						<div class="form-group">
-							<label for="body">Comments:</label>
-							<textarea placeholder="Enter comments about your experience here" class="form-control" rows="10" id="comments"></textarea>
-						</div>
-												
-						<button type="submit" class="btn btn-success submit" id="submitRating">Submit Rating!</button>
-					</div>
-				</form>
+					</form>
+
+				</div>
 			</div>
 		</div>
+		<br>
 	</div>
 
 	<!-- Firebase Script -->
