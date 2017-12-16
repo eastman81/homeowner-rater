@@ -4,7 +4,7 @@ A full stack web application made for contractors to review the homeowners they 
 
 This app was built using HTML/CSS, Bootstrap and Light Bootstrap Dashbboard, JavaScript, Node Js, Express Js, MySQL, Sequelize, and Firebase for user login and authentication. 
 
-View the application [here](https://fathomless-harbor-60633.herokuapp.com/)
+View the application [here](https://fathomless-harbor-60633.herokuapp.com/)!
 
 Built by [Forrest](https://github.com/eastman81/) and [Daniel](https://github.com/danielryne)
 
