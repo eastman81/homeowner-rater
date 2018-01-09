@@ -60,6 +60,9 @@ $(document).ready(function() {
       // console.log(ownerName);
 
       // return ownerName;
+
+      var oN = $("<h2>");
+      oN.text(ownerName)
     });
     // console.log(ownerName);
   }
@@ -104,10 +107,13 @@ $(document).ready(function() {
     newPostPanelBody.addClass("panel-body");
     var newPostBody = $("<p>");
 
-    // getOwnerName(post);
     // console.log(ownerName);
 
-    newPostTitle.text("Owner " + post.ownerId + " Rating: " + post.rating + " ");
+    newPostTitle.text("Rating: " + post.rating + " ");
+    // newPostTitle.text(`Owner ${getOwnerName(post)} Rating: ${post.rating} `);
+    // newPostTitle.text(`Owner ${ownerName} Rating: ${post.rating} `);
+
+    getOwnerName(post)
     
     newPostBody.text(post.comment);
     newPostDate.text(formattedDate);
